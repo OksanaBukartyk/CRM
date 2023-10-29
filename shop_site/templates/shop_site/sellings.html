@@ -1,0 +1,35 @@
+{% extends "shop_site/base.html" %}
+{% block content %}
+<h1>Продажі</h1>
+<div class="row">
+    {% if sellings %}
+    {% for selling in sellings %}
+
+    <div class="card" style="width:265px; margin: 10px;">
+        <img class="card-img-top" src="https://images.1plus1.ua/uploads/articles/000/891/271/a3d9f4fabdafa33912f449c8f004a0a6_1024x768.webp" alt="Card image" style="width:100%">
+        <div class="card-body">
+          <h4 class="card-title">{{selling.product.product_name}}</h4>
+          <p class="card-text">Продавець: {{selling.seller.first_name}} {{selling.seller.last_name}}</p>
+          <p class="card-text">Покупець: {{selling.buyer.first_name}} {{selling.buyer.last_name}}</p>
+          <p class="card-text">{{selling.amount_sale}} грн</p>
+          <p class="card-text">{{selling.date_sale}}</p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="card-footer bg-white text-center">
+          <a href="{% url 'selling_edit' selling.id %}" class="btn btn-outline-success mr-2">Редагувати</a>
+          <a href="{% url 'selling_delete' selling.id%}" class="btn btn-outline-danger ml-2" >Видалити</a>
+        </div>
+        {% endif %}
+      </div>
+
+
+
+    {% endfor %}
+
+    {% else %}
+    <p>Нема продажів в базі.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

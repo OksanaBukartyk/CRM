@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Oops.....</h2>
+    <div class="message">
+        {% if message %}
+        <h6>{{ message }}!</h6>
+        {% endif %}
+    </div>
+    <a class="btn mt-5" href="{{ url_for('login')}}" role="button">Back to the site</a>
+</div>
+{% endblock %}

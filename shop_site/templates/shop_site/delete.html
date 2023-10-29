@@ -1,0 +1,16 @@
+{% extends "shop_site/base.html" %}
+
+{% block content %}
+
+<div class="content-section">
+    <h2>Видалення {{title}}</h2>
+<form method="POST">
+  {% csrf_token %}
+  <p>Ви впевнені, що бажаєте видалити "{{data}}"?</p>
+  <div>
+    <button class="btn btn-outline-success mr-2" type="submit">Так, Видалити</button>
+    <a class="btn btn-outline-danger ml-2" href="{% url link %}">Скасувати</a>
+  </div>
+</form>
+</div>
+{% endblock content %}

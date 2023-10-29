@@ -1,0 +1,9 @@
+{% extends "shop_site/base.html" %}
+{% block content %}
+    <h2>Ви вийшли з вашого облікового запису</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="btn btn-outline-success ml-2" href="{% url 'login' %}">Ввійти</a>
+        </small>
+    </div>
+{% endblock content %}

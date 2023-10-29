@@ -1,0 +1,16 @@
+{% extends "shop_site/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Форма {% if id %} редагуваня {% else %} додавання {% endif %}
+                {{title_name}}</legend>
+                {{ form|crispy }}
+        </fieldset>
+        <input class='btn btn-outline-success' type="submit" value="Зберегти" />
+    </form>
+</div>
+{% endblock %}

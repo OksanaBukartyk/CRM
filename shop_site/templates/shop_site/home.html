@@ -1,0 +1,238 @@
+﻿{% extends "shop_site/base.html" %}
+{% block content %}
+
+
+<div id="productCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <h1>Продукти</h1>
+  <ul class="carousel-indicators">
+    {% if products %}
+      {% for product in products %}
+          <li data-target="#productCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}
+    {% else %}
+    <p>Нема продуктів в базі.</p>
+    {% endif %}
+
+  </ul>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    {% for product in products %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card" style="width:80%; margin: auto; background-color: rgb(165, 182, 170); padding: 50px;">
+            <div class="row">
+              <div class="col-6">
+                <img class="card-img-top"
+                src="https://images.1plus1.ua/uploads/articles/000/891/271/a3d9f4fabdafa33912f449c8f004a0a6_1024x768.webp"
+                alt="Card image" style="width:100%">
+              </div>
+              <div class="col-6">
+                <div class="card-body mt-2">
+                  <h4 class="card-title">{{product.product_name}}</h4>
+                  <p class="card-text">{{product.description}}</p>
+                  <p class="card-text">Кількість: {{product.count}} шт.</p>
+                  <p class="card-text">Вартість: {{product.price}} грн</p>
+                </div>
+                <div class="card-footer text-center" style="background-color: rgb(165, 182, 170);">
+                  <a href="{% url 'product_edit' product.id %}" class="btn btn-success ">Редагувати</a>
+                  <a href="{% url 'product_delete' product.id%}" class="btn btn-danger ">Видалити</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+    {% endfor %}
+</div>
+
+  <!-- Controls -->
+  <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
+</div>
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+  {% if user.is_authenticated %}
+<div id="buyerCarousel" class="carousel slide mt-5" data-ride="carousel">
+  <!-- Indicators -->
+  <h1>Покупці</h1>
+  <ul class="carousel-indicators">
+    {% if buyers %}
+      {% for buyer in buyers %}
+          <li data-target="#buyerCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}
+    {% else %}
+    <p>Нема покупців в базі.</p>
+    {% endif %}
+
+  </ul>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    {% for buyer in buyers %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card" style="width:80%; margin: auto; background-color: rgb(165, 182, 170); padding: 50px;">
+            <div class="row">
+              <div class="col-6">
+                <img class="card-img-top"
+                src="https://www.w3schools.com/bootstrap4/img_avatar1.png"
+                alt="Card image" style="width:100%">
+              </div>
+              <div class="col-6">
+                <div class="card-body mt-2">
+                  <h4 class="card-title">{{buyer.first_name}} {{buyer.last_name}}</h4>
+                  <p class="card-text">{{buyer.phone_number}}</p>
+                  <p class="card-text">{{buyer.email}}</p>
+                </div>
+                <div class="card-footer text-center" style="background-color: rgb(165, 182, 170);">
+                  <a href="{% url 'buyer_edit' buyer.id %}" class="btn btn-success ">Редагувати</a>
+                  <a href="{% url 'buyer_delete' buyer.id%}" class="btn btn-danger ">Видалити</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+    {% endfor %}
+</div>
+
+  <!-- Controls -->
+  <a class="carousel-control-prev" href="#buyerCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#buyerCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
+</div>
+
+ <!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+ <div id="sellerCarousel" class="carousel slide mt-5" data-ride="carousel">
+  <!-- Indicators -->
+  <h1>Продавці</h1>
+  <ul class="carousel-indicators">
+    {% if sellers %}
+      {% for seller in sellers %}
+          <li data-target="#sellerCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}
+    {% else %}
+    <p>Нема продавців в базі.</p>
+    {% endif %}
+
+  </ul>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    {% for seller in sellers %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card" style="width:80%; margin: auto; background-color: rgb(165, 182, 170); padding: 50px;">
+            <div class="row">
+              <div class="col-6">
+                <img class="card-img-top"
+                src="https://www.w3schools.com/bootstrap4/img_avatar1.png"
+                alt="Card image" style="width:100%">
+              </div>
+              <div class="col-6">
+                <div class="card-body mt-2">
+                  <h4 class="card-title">{{seller.first_name}} {{seller.last_name}}</h4>
+                  <p class="card-text">{{seller.phone_number}}</p>
+                  <p class="card-text">{{seller.email}}</p>
+                  <p class="card-text">{{seller.position}}</p>
+          <small>{{seller.date_employment}}</small>
+                </div>
+                <div class="card-footer text-center" style="background-color: rgb(165, 182, 170);">
+                  <a href="{% url 'seller_edit' seller.id %}" class="btn btn-success ">Редагувати</a>
+                  <a href="{% url 'seller_delete' seller.id%}" class="btn btn-danger ">Видалити</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+    {% endfor %}
+</div>
+
+  <!-- Controls -->
+  <a class="carousel-control-prev" href="#sellerCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#sellerCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+ <!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+ <div id="sellingCarousel" class="carousel slide mt-5" data-ride="carousel">
+  <!-- Indicators -->
+  <h1>Продажі</h1>
+  <ul class="carousel-indicators">
+    {% if sellings %}
+      {% for selling in sellings %}
+          <li data-target="#sellerCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}
+    {% else %}
+    <p>Нема продажей в базі.</p>
+    {% endif %}
+
+  </ul>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    {% for selling in sellings %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card" style="width:80%; margin: auto; background-color: rgb(165, 182, 170); padding: 50px;">
+            <div class="row">
+              <div class="col-6">
+                <img class="card-img-top"
+                src="https://images.1plus1.ua/uploads/articles/000/891/271/a3d9f4fabdafa33912f449c8f004a0a6_1024x768.webp"
+                alt="Card image" style="width:100%">
+              </div>
+              <div class="col-6">
+                <div class="card-body mt-2">
+                  <h4 class="card-title">{{selling.product.product_name}}</h4>
+                  <p class="card-text">Продавець: {{selling.seller.first_name}} {{selling.seller.last_name}}</p>
+                  <p class="card-text">Покупець: {{selling.buyer.first_name}} {{selling.buyer.last_name}}</p>
+                  <p class="card-text">{{selling.amount_sale}} грн</p>
+                  <p class="card-text">{{selling.date_sale}}</p>
+          <small>{{selling.date_employment}}</small>
+                </div>
+                <div class="card-footer text-center" style="background-color: rgb(165, 182, 170);">
+                  <a href="{% url 'selling_edit' selling.id %}" class="btn btn-success ">Редагувати</a>
+                  <a href="{% url 'selling_delete' selling.id%}" class="btn btn-danger ">Видалити</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+    {% endfor %}
+</div>
+
+  <!-- Controls -->
+  <a class="carousel-control-prev" href="#sellingCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#sellingCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+{% endif %}
+
+<br>
+{% endblock content %}

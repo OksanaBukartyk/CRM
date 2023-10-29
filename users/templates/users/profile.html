@@ -1,0 +1,19 @@
+{% extends "shop_site/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="https://www.w3schools.com/bootstrap4/img_avatar1.png">
+        <div class="media-body">
+          <h2 class="account-heading">Логін: {{ user.username }}</h2>
+          <p class="text-secondary">Email: {{ user.email }}</p>
+          <p class="text-secondary">Ім'я: {{ user.first_name }} {{ user.last_name }}</p>
+          <hr>
+          <small class='text-muted'>Остання активність: {{user.last_login}}</small>
+          <br>
+          <small class='text-muted'>Дата реєстрації: {{user.date_joined}}</small>
+        </div>
+      </div>
+      <!-- Здесь будет форма -->
+    </div>
+{% endblock content %}

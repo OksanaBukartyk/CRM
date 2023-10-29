@@ -1,0 +1,28 @@
+{% extends "shop_site/base.html" %}
+{% block content %}
+<h1>Покупці </h1>
+<div class="row">
+  {% if buyers %}
+  {% for buyer in buyers %}
+  <div class="card" style="width:265px; margin: 10px;">
+    <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image"
+      style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">{{buyer.first_name}} {{buyer.last_name}}</h4>
+      <p class="card-text">{{buyer.phone_number}}</p>
+      <p class="card-text">{{buyer.email}}</p>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="card-footer bg-white text-center">
+      <a href="{% url 'buyer_edit' buyer.id %}" class="btn btn-outline-success mr-2">Редагувати</a>
+      <a href="{% url 'buyer_delete' buyer.id%}" class="btn btn-outline-danger ml-2">Видалити</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>Нема покупців в базі.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
